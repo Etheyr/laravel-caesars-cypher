@@ -32,6 +32,12 @@
 			<div class="ui segment">
 
 				<span>{{$ceasarCrypt->text}}</span>
+				<span class="left floated">
+					<form action="/{{$ceasarCrypt->id}}" method="POST">
+						{{csrf_field()}}
+						<button type="submit" class="ui red button">Supprimer</button>
+					</form>
+				</span>
 
 			</div>
 			@endforeach

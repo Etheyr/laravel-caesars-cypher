@@ -18,9 +18,31 @@ class CeasarController extends Controller
     }
 
     public function postNew(Request $request){
-    	$ceasarCrypt = new Ceasar;
-    	$ceasarCrypt->text = $request->text;
-    	$ceasarCrypt->save();
-    	return  redirect('/');
+        $ceasarDecalage = $request->decalage;
+        $ceasarRange = range('a','z');
+        $ceasarTable = str_split($request->text,1);
+        $stringVoid = '';
+
+        foreach ($ceasarTable as $value) {
+            $ceasarValue = $value;
+            $ceasarSearch = array_search($ceasarValue,$ceasarRange);
+            $ceasarPos = ($ceasarSearch + $ceasarDecalage) %25;
+            $decalCeasar = $ceasarRange[$ceasarPos];
+            $stringVoid .= $decalCeasar;
+        }
+
+        $ceasarCrypt = new Ceasar;
+        $ceasarCrypt->text = $stringVoid;
+        $ceasarCrypt->save();
+        return  redirect('/');
+
+    }
+
+
+    public function postDelete($id){
+        $ceasarCrypt = Ceasar::find($id);
+        $ceasarCrypt->delete();
+        return back();
+
     }
 }

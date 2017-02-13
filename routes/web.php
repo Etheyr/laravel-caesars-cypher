@@ -20,3 +20,5 @@ Route::get('/','CeasarController@getIndex');
 Route::get('/newCrypt','CeasarController@getNew');
 
 Route::post('/newCrypt/edit','CeasarController@postNew');
+
+Route::post('/{id}','CeasarController@postDelete');
